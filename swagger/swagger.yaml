@@ -1,0 +1,90 @@
+swagger: "2.0"
+info:
+  description: "Dummy Automation"
+  version: "1.0.0"
+  title: "Dummy Automation"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "apiteam@swagger.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "petstore.swagger.io"
+basePath: "/v1"
+tags:
+- name: "account"
+  description: "Account Management"
+  
+schemes:
+- "http"
+
+paths:
+  /store/{id}/account:
+    post:
+      tags:
+      - "account"
+      summary: "Add a new account to the store"
+      description: ""
+      operationId: "createAccount"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - $ref: "#/parameters/id"
+        - $ref: '#/parameters/accountCreationRequest'
+      responses:
+        200:
+          description: "Account created with success"
+          schema: 
+            $ref: '#/definitions/AccountDetails'
+    delete:
+      tags:
+        - "account"
+      summary: "Delete a new account to the store"
+      description: ""
+      operationId: "deleteAccount"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - $ref: "#/parameters/id"
+      responses:
+        204:
+          description: "Account deleted with success"
+  
+parameters:
+  id:
+    in: path
+    name: id
+    description: "Store Id"
+    required: true
+    type: string
+    pattern: "^[0-9]*$"
+  
+  accountCreationRequest:
+    in: body
+    name: accountCreationRequest
+    description: "Account creation request"
+    required: true
+    schema:
+      $ref: '#/definitions/AccountCreationRequest'
+
+definitions:
+  AccountCreationRequest:
+    type: object
+    properties:
+      name:
+        type: string
+        
+  AccountDetails:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+  
+  
+
