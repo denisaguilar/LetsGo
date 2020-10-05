@@ -38,6 +38,23 @@ paths:
           description: "Account created with success"
           schema: 
             $ref: '#/definitions/AccountDetails'
+        400:
+          description: "Bad request"
+          schema: 
+           $ref: '#/definitions/ErrorDetails'
+        401:
+          description: "Unauthorized"
+          schema: 
+           $ref: '#/definitions/ErrorDetails'
+        500:
+          description: "Internal Server Error"
+          schema: 
+           $ref: '#/definitions/ErrorDetails'
+        default:
+          description: "Default Server Error"
+          schema: 
+           $ref: '#/definitions/ErrorDetails'
+           
     delete:
       tags:
         - "account"
@@ -85,6 +102,15 @@ definitions:
         type: string
       name:
         type: string
+        
+  ErrorDetails:
+    type: object
+    properties:
+      time:
+        type: string
+      message:
+        type: string
+  
   
   
 
