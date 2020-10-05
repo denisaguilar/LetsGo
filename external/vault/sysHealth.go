@@ -23,7 +23,7 @@ type SysHealthResponse struct {
 
 func SysHealth() (*SysHealthResponse, error) {
 	resp, err := restclient.Get("http://192.168.31.235:8200/v1/sys/health", nil)
-	if err == nil {
+	if err != nil {
 		log.Println("Error when calling api")
 	}
 	defer resp.Body.Close()

@@ -10,15 +10,15 @@ import (
 )
 
 func CreateAccountHandler(params account.CreateAccountParams) middleware.Responder {
-	accountDetails, err := processRequest(&params)
-	if err != nil {
-		return account.NewCreateAccountDefault(500).WithPayload(err)
+	ad, ed := processRequest(&params)
+	if ed != nil {
+		return account.NewCreateAccountDefault(500).WithPayload(ed)
 	}
-	return account.NewCreateAccountOK().WithPayload(accountDetails)
+	return account.NewCreateAccountOK().WithPayload(ad)
 }
 
 func processRequest(params *account.CreateAccountParams) (*models.AccountDetails, *models.ErrorDetails) {
-	resp, err := vault.SysHealth()
+	_, err := vault.SysHealth()
 	if err != nil {
 		e := &models.ErrorDetails{
 			Message: "Error when verifing SysHealth",
